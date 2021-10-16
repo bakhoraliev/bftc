@@ -1,5 +1,3 @@
-from pampy import _, match
-
 from .tokens import (DecrementCellValueToken, GetCellValueToken,
                      IncrementCellValueToken, InvalidSyntaxToken, LoopEndToken,
                      LoopStartToken, NextCellToken, PreviousCellToken,
@@ -15,17 +13,25 @@ def tokenize(char: str) -> Token:
     Returns:
         Token: token
     """
-    return match(char,
-        "+", IncrementCellValueToken(),
-        "-", DecrementCellValueToken(),
-        ".", PutCellValueToken(),
-        ",", GetCellValueToken(),
-        "[", LoopStartToken(),
-        "]", LoopEndToken(),
-        ">", NextCellToken(),
-        "<", PreviousCellToken(),
-        _, InvalidSyntaxToken()
-    )
+    match char:
+        case "+":
+            return IncrementCellValueToken()
+        case "-":
+            return DecrementCellValueToken()
+        case ".":
+            return PutCellValueToken()
+        case ",":
+            return GetCellValueToken()
+        case "[":
+            return LoopStartToken()
+        case "]":
+            return LoopEndToken()
+        case ">":
+            return NextCellToken()
+        case "<":
+            return PreviousCellToken()
+        case _:
+            return InvalidSyntaxToken()
 
 
 __all__ = ["tokenize"]

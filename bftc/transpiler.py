@@ -1,5 +1,3 @@
-from pampy import _, match
-
 from .tokens import (DecrementCellValueToken, GetCellValueToken,
                      IncrementCellValueToken, LoopEndToken, LoopStartToken,
                      NextCellToken, PreviousCellToken, PutCellValueToken,
@@ -15,17 +13,25 @@ def transpile(token: Token) -> str:
     Returns:
         str: C code
     """
-    return match(token,
-        NextCellToken, "i++;",
-        PreviousCellToken, "i--;",
-        PutCellValueToken, "putchar(arr[i]);",
-        GetCellValueToken, "arr[i] = getchar();",
-        LoopStartToken, "while(arr[i]) {",
-        LoopEndToken, "}",
-        IncrementCellValueToken, "arr[i]++;",
-        DecrementCellValueToken, "arr[i]--;",
-        _, ""
-    )
+    match token:
+        case NextCellToken():
+            return "i++;"
+        case PreviousCellToken():
+            return "i--;"
+        case PutCellValueToken():
+            return "putchar(arr[i]);"
+        case GetCellValueToken():
+            return "arr[i] = getchar();"
+        case LoopStartToken():
+            return "while(arr[i]) {"
+        case LoopEndToken():
+            return "}"
+        case IncrementCellValueToken():
+            return "arr[i]++;"
+        case DecrementCellValueToken():
+            return "arr[i]--;"
+        case _:
+            return ""
 
 
 __all__ = ["transpile"]
