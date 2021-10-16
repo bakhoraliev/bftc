@@ -29,10 +29,10 @@ def transpile(token: Token) -> str: ...
 - `code_generator` — contains `generate` function that generate valid C code from given tokens
 
 ```python
-def generate(list[Token]) -> str: ...
+def generate(tokens: list[Token]) -> str: ...
 ```
 
 ## Install
 ```bash
-pip install bftc pampy
+pip install bftc
 ```
