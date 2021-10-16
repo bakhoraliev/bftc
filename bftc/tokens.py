@@ -74,7 +74,7 @@ class InvalidSyntaxToken(NonValueToken):
         return "InvalidSyntax"
 
 
-Token = Union[NonValueToken, ValueToken]
+Token = NonValueToken | ValueToken
 
 
 __all__ = [
